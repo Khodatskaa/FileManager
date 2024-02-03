@@ -22,14 +22,28 @@ int main() {
         std::cout << "12. Search by Mask\n";
         std::cout << "0. Exit\n";
 
-        std::cout << "Enter your choice(0-12): ";
+        std::cout << "Enter your choice (0-12): ";
         std::cin >> choice;
 
         switch (choice) {
         case 1:
-            std::cout << "\nContents:\n ";
-            fileManager.showContents("."); 
-            break;
+        {
+            char diskLetter;
+            std::cout << "\nEnter disk (C or D): ";
+            std::cin >> diskLetter;
+
+            std::string diskPath = std::string(1, std::toupper(diskLetter)) + ":\\";
+            std::cout << "\nFolders on Disk " << diskLetter << ":\n";
+            fileManager.showContents(diskPath);
+
+            std::cout << "\nEnter the folder name to display its contents: ";
+            std::cin >> path;
+            path = diskPath + path;
+
+            std::cout << "\nContents of " << path << ":\n";
+            fileManager.showContents(path);
+        }
+        break;
 
         case 2:
             std::cout << "\nEnter folder name: ";
@@ -48,7 +62,7 @@ int main() {
             std::cin >> path;
             std::cout << "Enter new folder name: ";
             std::cin >> newPath;
-            fileManager.editFolder(path, newPath);  
+            fileManager.editFolder(path, newPath);
             break;
 
         case 5:
@@ -56,7 +70,7 @@ int main() {
             std::cin >> path;
             std::cout << "Enter new file name: ";
             std::cin >> newPath;
-            fileManager.editFile(path, newPath);  
+            fileManager.editFile(path, newPath);
             break;
 
         case 6:
