@@ -4,10 +4,24 @@
     <Filter Include="Main">
       <UniqueIdentifier>{6fc7a30a-bcf8-403a-8833-014ee3f7871d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FileManager">
+      <UniqueIdentifier>{f4628dad-e209-4abc-bcc1-9dc65663e0ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>FileManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FileManager.h">
+      <Filter>FileManager</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
