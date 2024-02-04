@@ -62,7 +62,7 @@ void FileManager::editFolder(const std::string& path, const std::string& newName
     fs::path oldFolderPath(path);
     fs::path newFolderPath(path);
     newFolderPath.remove_filename();
-    newFolderPath /= newName;
+    newFolderPath /= newName;   
 
     if (fs::exists(oldFolderPath) && fs::is_directory(oldFolderPath)) {
         try {
