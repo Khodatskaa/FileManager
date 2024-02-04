@@ -15,16 +15,38 @@ bool FileManager::isDirectory(const std::string& path) {
 }
 
 void FileManager::showContents(const std::string& path) {
-    fs::path directoryPath(path);
-    if (fs::exists(directoryPath) && fs::is_directory(directoryPath)) {
-        for (const auto& entry : fs::directory_iterator(directoryPath)) {
-            std::cout << entry.path().filename() << std::endl;
+    fs::path folderPath(path);
+    if (fs::exists(folderPath) && fs::is_directory(folderPath)) {
+        std::vector<std::string> contents;
+
+        for (const auto& entry : fs::directory_iterator(folderPath)) {
+            contents.push_back(entry.path().filename().string());
         }
+
+        int choice;
+        do {
+            std::cout << "\nContents of " << folderPath << ":\n";
+            for (size_t i = 0; i < contents.size(); ++i) {
+                std::cout << i + 1 << ". " << contents[i] << std::endl;
+            }
+            std::cout << "0. Go back\n";
+            std::cout << "Enter your choice (0-" << contents.size() << "): ";
+            std::cin >> choice;
+
+            if (choice > 0 && choice <= static_cast<int>(contents.size())) {
+                std::string selectedPath = (folderPath / contents[static_cast<std::vector<std::string, std::allocator<std::string>>::size_type>(choice) - 1]).string();
+                showContents(selectedPath);  
+            }
+            else if (choice < 0 || choice > static_cast<int>(contents.size())) {
+                std::cout << "Invalid choice. Please try again.\n";
+            }
+        } while (choice != 0);
     }
     else {
-        std::cout << "Error: Invalid directory path" << std::endl;
+        std::cout << "Error: Folder not found" << std::endl;
     }
 }
+
 
 void FileManager::createFolder(const std::string& path) {
     fs::path folderPath(path);

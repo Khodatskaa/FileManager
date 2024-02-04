@@ -34,15 +34,7 @@ int main() {
             std::cin >> diskLetter;
 
             std::string diskPath = std::string(1, std::toupper(diskLetter)) + ":\\";
-            std::cout << "\nFolders on Disk " << diskLetter << ":\n";
             fileManager.showContents(diskPath);
-
-            std::cout << "\nEnter the folder name to display its contents: ";
-            std::cin >> path;
-            path = diskPath + path;
-
-            std::cout << "\nContents of " << path << ":\n";
-            fileManager.showContents(path);
         }
         break;
 
@@ -89,12 +81,16 @@ int main() {
         case 8:
             std::cout << "\nEnter folder name: ";
             std::cin >> path;
+            std::cout << "Enter destination folder: ";
+            std::cin >> newPath;
             fileManager.copyFolder(path, newPath);
             break;
 
         case 9:
             std::cout << "\nEnter file name: ";
             std::cin >> path;
+            std::cout << "Enter destination folder: ";
+            std::cin >> newPath;
             fileManager.copyFile(path, newPath);
             break;
 
@@ -114,12 +110,12 @@ int main() {
 
         case 12:
             std::cout << "\nEnter file name: ";
-			std::cin >> mask;
-			fileManager.searchFile(mask);
-			break;
+            std::cin >> mask;
+            fileManager.searchFile(mask);
+            break;
 
         case 13:
-			std::cout << "\nEnter folder name: ";
+            std::cout << "\nEnter folder name: ";
             std::cin >> mask;
             fileManager.searchFolder(mask);
             break;
@@ -136,4 +132,3 @@ int main() {
 
     return 0;
 }
-
