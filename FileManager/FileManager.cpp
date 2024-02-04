@@ -223,23 +223,26 @@ int FileManager::calculateSize(const std::string& path) {
     return -1;
 }
 
-void FileManager::searchByMask(const std::string& path, const std::string& mask) {
-    fs::path searchPath(path);
-    if (fs::exists(searchPath) && fs::is_directory(searchPath)) {
-        try {
-            for (const auto& entry : fs::recursive_directory_iterator(searchPath)) {
-                if (entry.path().filename().string().find(mask) != std::string::npos) {
-                    std::cout << entry.path().filename() << std::endl;
-                }
-            }
-        }
-        catch (const fs::filesystem_error& e) {
-            std::cout << "Error: " << e.what() << std::endl;
-        }
-    }
-    else {
-        std::cout << "Error: Invalid search directory" << std::endl;
-    }
+void FileManager::searchFile(const std::string& fileName) {
+	fs::path currentPath = fs::current_path();
+    for (const auto& entry : fs::recursive_directory_iterator(currentPath)) {
+        if (entry.path().filename() == fileName) {
+			std::cout << "File found at: " << entry.path() << std::endl;
+			return;
+		}
+	}
+	std::cout << "File not found" << std::endl;
+}
+
+void FileManager::searchFolder(const std::string& folderName) {
+	fs::path currentPath = fs::current_path();
+    for (const auto& entry : fs::recursive_directory_iterator(currentPath)) {
+        if (entry.path().filename() == folderName) {
+			std::cout << "Folder found at: " << entry.path() << std::endl;
+			return;
+		}
+	}
+	std::cout << "Folder not found" << std::endl;
 }
 
 FileManager::~FileManager() {}

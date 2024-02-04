@@ -19,10 +19,11 @@ int main() {
         std::cout << "9. Copy File\n";
         std::cout << "10. Move File\n";
         std::cout << "11. Calculate Size\n";
-        std::cout << "12. Search by Mask\n";
+        std::cout << "12. Search File\n";
+        std::cout << "13. Search Folder\n";
         std::cout << "0. Exit\n";
 
-        std::cout << "Enter your choice (0-12): ";
+        std::cout << "Enter your choice (0-13): ";
         std::cin >> choice;
 
         switch (choice) {
@@ -112,11 +113,15 @@ int main() {
             break;
 
         case 12:
-            std::cout << "\nEnter folder name: ";
-            std::cin >> path;
-            std::cout << "Enter mask: ";
+            std::cout << "\nEnter file name: ";
+			std::cin >> mask;
+			fileManager.searchFile(mask);
+			break;
+
+        case 13:
+			std::cout << "\nEnter folder name: ";
             std::cin >> mask;
-            fileManager.searchByMask(path, mask);
+            fileManager.searchFolder(mask);
             break;
 
         case 0:
@@ -131,3 +136,4 @@ int main() {
 
     return 0;
 }
+

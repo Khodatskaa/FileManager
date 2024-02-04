@@ -27,7 +27,8 @@ public:
 	void copyFile(const std::string& path, const std::string& newPath);
 	void moveFile(const std::string& path, const std::string& newPath);
 	int calculateSize(const std::string& path);
-	void searchByMask(const std::string& path, const std::string& mask);
+	void searchFile(const std::string& fileName);
+	void searchFolder(const std::string& folderName);
 
 	~FileManager();
 
