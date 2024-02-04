@@ -62,7 +62,7 @@ void FileManager::editFolder(const std::string& path, const std::string& newName
     fs::path oldFolderPath(path);
     fs::path newFolderPath(path);
     newFolderPath.remove_filename();
-    newFolderPath /= newName;   
+    newFolderPath /= newName;
 
     if (fs::exists(oldFolderPath) && fs::is_directory(oldFolderPath)) {
         try {
@@ -131,7 +131,7 @@ void FileManager::deleteFile(const std::string& path) {
 void FileManager::copyFolder(const std::string& path, const std::string& newPath) {
     fs::path sourcePath(path);
     fs::path destinationPath(newPath);
-    destinationPath /= sourcePath.filename(); 
+    destinationPath /= sourcePath.filename();
 
     if (fs::exists(sourcePath) && fs::is_directory(sourcePath)) {
         try {
@@ -186,7 +186,6 @@ void FileManager::copyFile(const std::string& path, const std::string& newPath) 
     }
 }
 
-
 void FileManager::moveFile(const std::string& path, const std::string& newPath) {
     fs::path sourcePath(path);
     fs::path destinationPath(newPath);
@@ -224,25 +223,39 @@ int FileManager::calculateSize(const std::string& path) {
 }
 
 void FileManager::searchFile(const std::string& fileName) {
-	fs::path currentPath = fs::current_path();
+    fs::path currentPath = fs::current_path();
     for (const auto& entry : fs::recursive_directory_iterator(currentPath)) {
         if (entry.path().filename() == fileName) {
-			std::cout << "File found at: " << entry.path() << std::endl;
-			return;
-		}
-	}
-	std::cout << "File not found" << std::endl;
+            std::cout << "File found at: " << entry.path() << std::endl;
+
+            recentFiles.push_back(entry.path().string());
+
+            return;
+        }
+    }
+    std::cout << "File not found" << std::endl;
 }
 
 void FileManager::searchFolder(const std::string& folderName) {
-	fs::path currentPath = fs::current_path();
+    fs::path currentPath = fs::current_path();
     for (const auto& entry : fs::recursive_directory_iterator(currentPath)) {
         if (entry.path().filename() == folderName) {
-			std::cout << "Folder found at: " << entry.path() << std::endl;
-			return;
-		}
-	}
-	std::cout << "Folder not found" << std::endl;
+            std::cout << "Folder found at: " << entry.path() << std::endl;
+
+            recentFolders.push_back(entry.path().string());
+
+            return;
+        }
+    }
+    std::cout << "Folder not found" << std::endl;
+}
+
+const std::vector<std::string>& FileManager::getRecentFiles() const {
+    return recentFiles;
+}
+
+const std::vector<std::string>& FileManager::getRecentFolders() const {
+    return recentFolders;
 }
 
 FileManager::~FileManager() {}
